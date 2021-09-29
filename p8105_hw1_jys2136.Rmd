@@ -6,28 +6,81 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
+
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 
 ```
 
-## R Markdown
+# Problem 1
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Creating a data frame 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r problem_1}
 
-```{r cars}
-summary(cars)
+set.seed(20)
+
+prob1_df = tibble(
+  random_samp = rnorm(10),
+  vec_pos = random_samp > 0,
+  vec_char = c("apple", "orange", "strawberry", "banana", "mango", "grape", "plum", "persimmon", "grapefruit", "fig"),
+  vec_fac = factor(c("April", "May", "June", "April", "May", "June", "April", "May", "June", "April"))
+)
+
+mean_random_samp = mean(pull(prob1_df, random_samp))
+mean_vec_pos = mean(pull(prob1_df, vec_pos))
+mean_vec_char = mean(pull(prob1_df, vec_char))
+mean_vec_fac = mean(pull(prob1_df, vec_fac))
+
+mean_random_samp
+mean_vec_pos
+mean_vec_char
+mean_vec_fac
+
 ```
 
-## Including Plots
+For the vectors that include characters ("vec_fac" and "vec_char"), I receive a warning
+message informing that the argument is not numeric or logical. R produces "NA" as a result. I am able to receive results for "random_samp" and "vec_pos" because they contain numerical values. This exercise shows that R does not compute the mean for non-numeric or character values.
 
-You can also embed plots, for example:
+## Applying the as.numeric function
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r problem_1_convert, eval = FALSE}
+
+transform(prob1_df, trans_pos = as.numeric(vec_pos))
+transform(prob1_df, trans_char = as.numeric(vec_char))
+transform(prob1_df, trans_fac = as.numeric(vec_fac))
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+I am able to convert "vec_fac" and "vec_pos", but not "vec_char". The factor variable recognizes that my variable has three different levels, hence why I am able to convert "vec_fac" to a numeric variable. However, R was unable to take the mean of the factor variable when the levels were non-numeric. 
+
+
+# Problem 2
+```{r problem_2}
+
+data("penguins", package = "palmerpenguins")
+
+view(penguins)
+
+
+
+number_rows = nrow(penguins)
+number_columns = ncol(penguins)
+number_rows
+number_columns
+
+
+mean(pull(penguins, flipper_length_mm))
+
+
+```
+
+mean(pull(penguins, flipper_length_mm))
+```{r problem_2_scatter}
+
+
+
+```
+
+
