@@ -59,17 +59,12 @@ I am able to convert "vec_fac" and "vec_pos", but not "vec_char". The factor var
 
 data("penguins", package = "palmerpenguins")
 
-view(penguins)
+
+nrow(penguins)
+ncol(penguins)
 
 
-
-number_rows = nrow(penguins)
-number_columns = ncol(penguins)
-number_rows
-number_columns
-
-
-mean(pull(penguins, flipper_length_mm))
+mean(pull(penguins, flipper_length_mm)), na.rm = TRUE
 
 
 ```
@@ -85,3 +80,8 @@ ggplot(penguins,
 ```
 
 
+```{r scatter_save}
+
+ggsave("p8105_hw1_jys2136.pdf", height = 4, width = 6)
+
+```
