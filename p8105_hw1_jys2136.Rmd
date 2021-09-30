@@ -41,17 +41,21 @@ For the vectors that include characters ("vec_fac" and "vec_char"), I receive a 
 
 ```{r problem_1_convert, eval = FALSE}
 
-transform(prob1_df, trans_pos = as.numeric(vec_pos))
-transform(prob1_df, trans_char = as.numeric(vec_char))
-transform(prob1_df, trans_fac = as.numeric(vec_fac))
-
-as.numeric(pull(prob1_df, vec_pos))
+as.numeric(pull(prob1_df, (vec_pos))
 as.numeric(pull(prob1_df, vec_char))
-as.numberic(pull(prob1_df, vec_fac))
+as.numeric(pull(prob1_df, vec_fac))
 
 ```
 
-I am able to convert "vec_fac" and "vec_pos", but not "vec_char". The factor variable recognizes that my variable has three different levels, hence why I am able to convert "vec_fac" to a numeric variable. However, R was unable to take the mean of the factor variable when the levels were non-numeric. 
+I am able to convert "vec_fac" and "vec_pos", but not "vec_char" 
+
+The as.numeric argument recognizes that logic vector has two possible outcomes "TRUE" or "FALSE" and converts this into binary "0" or "1"
+
+The as.numeric argument recognizes that the factor vector has 3 distinct levels and converts each level to a number: "1", "2", or "3", respective of the original 
+"levels"
+
+
+three different levels, thus providing a proverly converted numbers.  However, R was unable to take the mean of the factor variable when the levels were non-numeric. 
 
 
 # Problem 2
@@ -59,13 +63,12 @@ I am able to convert "vec_fac" and "vec_pos", but not "vec_char". The factor var
 
 data("penguins", package = "palmerpenguins")
 
+skimr::skim(penguins)
 
 nrow(penguins)
 ncol(penguins)
 
-
-mean(pull("penguins", flipper_length_mm)), na.rm = TRUE
-
+mean((pull(penguins, flipper_length_mm)), na.rm = TRUE)
 
 ```
 
