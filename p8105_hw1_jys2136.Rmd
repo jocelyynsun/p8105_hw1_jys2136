@@ -17,7 +17,7 @@ library(tidyverse)
 
 ## Creating a data frame 
 
-```{r problem_1}
+```{r problem_1, warning = FALSE}
 
 set.seed(20)
 
@@ -35,7 +35,12 @@ mean(pull(prob1_df, vec_fac))
 
 ```
 
-For the vectors that include characters (`vec_fac` and `vec_char`), I receive a warning message informing that the argument is not numeric or logical. R produces a warning message and `NA` as a result. 
+For the vectors that include characters (`vec_fac` and `vec_char`), I receive a warning message informing that the argument is not numeric or logical. R produces `NA` in the output and the following warning message:
+
+```
+Warning message:
+In mean.default(pull(<data>, <vector>)): argument is not numeric or logical: returning NA
+```
 
 I am able to receive results for `random_samp` and `vec_pos` because they contain numerical values. This exercise shows that R does not compute the mean for non-numeric or character values.
 
