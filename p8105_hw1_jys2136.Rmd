@@ -64,7 +64,7 @@ nrow(penguins)
 ncol(penguins)
 
 
-mean(pull(penguins, flipper_length_mm)), na.rm = TRUE
+mean(pull("penguins", flipper_length_mm)), na.rm = TRUE
 
 
 ```
