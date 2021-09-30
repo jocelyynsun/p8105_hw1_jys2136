@@ -35,11 +35,11 @@ mean(pull(prob1_df, vec_fac))
 
 ```
 
-For the vectors that include characters ("vec_fac" and "vec_char"), I receive a warning message informing that the argument is not numeric or logical. R produces "NA" as a result. 
+For the vectors that include characters (`vec_fac` and `vec_char`), I receive a warning message informing that the argument is not numeric or logical. R produces a warning message and `NA` as a result. 
 
-I am able to receive results for "random_samp" and "vec_pos" because they contain numerical values. This exercise shows that R does not compute the mean for non-numeric or character values.
+I am able to receive results for `random_samp` and `vec_pos` because they contain numerical values. This exercise shows that R does not compute the mean for non-numeric or character values.
 
-## Applying the as.numeric function
+## Converting to numeric data
 
 ```{r problem_1_convert, eval = FALSE}
 
@@ -49,30 +49,28 @@ as.numeric(pull(prob1_df, vec_fac))
 
 ```
 
-I am able to convert "vec_fac" and "vec_pos", but not "vec_char" 
+I am able to convert `vec_fac` and `vec_pos`, but not `vec_char` 
 
-The as.numeric argument recognizes that logic vector has two possible outcomes "TRUE" or "FALSE" and converts this into binary "0" or "1"
+The as.numeric argument recognizes that the factor vector `vec_fac` has 3 distinct levels and converts each level to a number: `1`, `2`, or `3`, respective of the original "levels", which explains why we could take the mean.
 
-The as.numeric argument recognizes that the factor vector has 3 distinct levels and converts each level to a number: "1", "2", or "3", respective of the original 
-"levels"
+The as.numeric argument recognizes that logic vector `vec_pos` has two possible outcomes `TRUE` or `FALSE` and converts this into binary `0` or `1`, which explains why we could take the mean.
 
-
-three different levels, thus providing a proverly converted numbers.  However, R was unable to take the mean of the factor variable when the levels were non-numeric. 
-
+The character vector `vec_char` was not converted numerically. The output produced as series of `NA` because the values in this vector cannot be converted to numbers, which explains why we could not take the mean.
 
 # Problem 2
 ```{r problem_2}
 
 data("penguins", package = "palmerpenguins")
 
-skimr::skim(penguins)
+```
 
-view(penguins)
+## Data Overview for Dataset Penguins
+```{r problem_2_data_overview}
+
+skimr::skim(penguins)
 
 nrow(penguins)
 ncol(penguins)
-
-mean((pull(penguins, flipper_length_mm)), na.rm = TRUE)
 
 ```
 
@@ -81,11 +79,19 @@ From `skimr::skim(penguins)` we see that there are 3 factor variables and 5 nume
 `nrow(penguins)` shows that we have 344 rows.
 `ncol(penguins)` shows that we have 8 columns.
 
+## Calculating mean flipper length
+
+```{r problem_2_data_mean}
+
+mean((pull(penguins, flipper_length_mm)), na.rm = TRUE)
+
+```
+
 The mean flipper length is `r mean((pull(penguins, flipper_length_mm)), na.rm = TRUE)` mm, which is given by `mean((pull(penguins, flipper_length_mm)), na.rm = TRUE)` and in the data overview  provided by `skimr::skim(penguins)`.
 
 
-## Creating a scatterplot
-```{r problem_2_scatter, eval = FALSE}
+## Scatterplot (flipper length vs bill length)
+```{r problem_2_scatter, warning = FALSE}
 
 ggplot(penguins, 
        aes(x = bill_length_mm, 
@@ -94,8 +100,8 @@ ggplot(penguins,
 
 ```
 
-
-```{r scatter_save}
+## Saving a scatterplot
+```{r scatter_save, warning =  FALSE}
 
 ggsave("p8105_hw1_jys2136.pdf", height = 4, width = 6)
 
